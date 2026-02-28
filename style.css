@@ -1,0 +1,153 @@
+/* Style de base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+body {
+  background: #0f172b;
+  display: flex;
+  justify-content: center;   
+  align-items: center;       
+  min-height: 100vh;         
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;   
+  min-height: 60vh;
+  max-width: 550px;
+  width: 90%;
+  padding: 20px;
+  background: #fff;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+}
+
+.container .title {
+  color: teal;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  line-height: 1.5em;
+  font-size: 24px;
+}
+
+h3 {
+  font-size: 18px;
+  color: gray;
+  line-height: 35px;
+}
+
+.container .content {
+  display: flex;
+  flex-direction: column;   
+  justify-content: center;
+  align-items: center;      
+  width: 100%;
+  margin-top: 20px;
+}
+
+.container .content input {
+  margin: 20px 0;
+  padding: 15px;
+  text-align: center;
+  border: 1px solid teal;
+  border-radius: 5px;
+  width: 80%;               
+  max-width: 400px;     
+  overflow: hidden; 
+}
+
+input:focus {
+  border-color: teal;
+  outline: none;
+}
+
+
+button {
+  margin: 20px 0;
+  padding: 15px;
+  border-radius: 10px;
+  border: solid 1px teal;
+  /* width: 35%; */
+  cursor: pointer;
+  color: #0f172b;
+  background: none;
+  font-size: 18px;
+  font-weight: 500;
+  transition: 0.5s;
+}
+
+button:hover {
+  background: teal;
+  color: #fff;
+  text-transform: capitalize;
+  letter-spacing: 0.5em;
+}
+
+p {
+  color: teal;
+  /* overflow-wrap: break-word; */
+  text-align: center;
+  word-break: break-all;
+}
+
+
+@media (max-width: 600px) {
+  .container {
+    width: 95%;
+    padding: 15px;
+  }
+
+  .container .title {
+    font-size: 20px;
+    letter-spacing: 0.1em;
+  }
+
+  h3 {
+    font-size: 16px;
+    line-height: 28px;
+  }
+
+  button {
+    width: 60%; 
+    font-size: 16px;
+  }
+
+  .container .content input {
+    width: 95%;
+  }
+}
+
+
+@media (min-width: 600px) and (max-width: 900px) {
+  .container {
+    width: 80%;
+  }
+
+  .container .title {
+    font-size: 22px;
+  }
+
+  button {
+    width: 50%;
+  }
+}
+
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 700px;
+  }
+
+  .container .title {
+    font-size: 28px;
+  }
+}

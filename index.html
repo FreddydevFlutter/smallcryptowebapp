@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="style.css" />
+    <title>www.crypto.com</title>
+  </head>
+  <body>
+    <div class="container">
+      <div>
+        <h2 class="title">Small Crypto App</h2>
+        <h3>Que Aimeriez-vous crypter aujourd'hui ?</h3>
+      </div>
+      <div class="content">
+        <input
+          type="text"
+          id="crypWord"
+          placeholder="Entrer un information a securiser...."
+        />
+        <div>
+          <h3>Votre phrase chiffré est:</h3>
+          <p id="result"></p>
+        </div>
+        <div>
+          <button id="btnCrypter">Crypter</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let publicKey, privateKey;
+
+      // Génération des clés RSA
+      async function generateKeys() {
+        const keyPair = await window.crypto.subtle.generateKey(
+          {
+            name: "RSA-OAEP",
+            modulusLength: 2048,
+            publicExponent: new Uint8Array([1, 0, 1]),
+            hash: "SHA-256",
+          },
+          true,
+          ["encrypt", "decrypt"],
+        );
+        publicKey = keyPair.publicKey;
+        privateKey = keyPair.privateKey;
+      }
+
+      // Fonction de chiffrement
+      async function encryptMessage(message) {
+        const enc = new TextEncoder();
+        const data = enc.encode(message);
+        const encrypted = await window.crypto.subtle.encrypt(
+          { name: "RSA-OAEP" },
+          publicKey,
+          data,
+        );
+        return btoa(String.fromCharCode(...new Uint8Array(encrypted)));
+      }
+
+      // Fonction de déchiffrement
+      async function decryptMessage(cipherText) {
+        const data = Uint8Array.from(atob(cipherText), (c) => c.charCodeAt(0));
+        const decrypted = await window.crypto.subtle.decrypt(
+          { name: "RSA-OAEP" },
+          privateKey,
+          data,
+        );
+        return new TextDecoder().decode(decrypted);
+      }
+
+      // Initialisation
+      generateKeys();
+
+      document
+        .getElementById("btnCrypter")
+        .addEventListener("click", async () => {
+          let message = document.getElementById("crypWord").value;
+          let encrypted = await encryptMessage(message);
+          document.getElementById("result").textContent = encrypted;
+
+          // Pour tester le déchiffrement :
+          let decrypted = await decryptMessage(encrypted);
+          console.log("Déchiffré:", decrypted);
+        });
+    </script>
+
+    <!-- <script src="index.js"></script> -->
+  </body>
+</html>
