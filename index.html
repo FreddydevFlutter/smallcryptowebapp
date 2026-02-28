@@ -79,7 +79,14 @@
         .addEventListener("click", async () => {
           let message = document.getElementById("crypWord").value;
           let encrypted = await encryptMessage(message);
-          document.getElementById("result").textContent = encrypted;
+
+          if (message === "") {
+            document.getElementById("result").textContent = "";
+          }else{
+            document.getElementById("result").textContent = encrypted;
+          }
+
+          
 
           // Pour tester le déchiffrement :
           let decrypted = await decryptMessage(encrypted);
